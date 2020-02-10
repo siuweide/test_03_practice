@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from app_manage.models import Project
+from app_manage.models import Project,Module
 from app_manage.forms import ProjectForms,ProjectEditForms
 
 def manage(request):
@@ -70,3 +70,5 @@ def project_delete(request,pid):
         p = Project.objects.get(id=pid)
         p.delete()
         return redirect("/manage/project_list/")
+
+

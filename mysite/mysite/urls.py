@@ -24,5 +24,11 @@ urlpatterns = [
     # 退出
     path('logout/', personal_views.logout),
     # 用户管理
-    path('manage/', include('app_manage.urls'))
+    path('manage/', include('app_manage.urls')),
+    # 用例管理
+    path('case/', include('app_case.urls')),
+    # 任务管理
+    path('task/', include('app_task.urls')),
+    # 变量管理
+    path('variable/', include('app_variable.urls'))
 ]

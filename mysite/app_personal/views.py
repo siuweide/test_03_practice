@@ -14,6 +14,7 @@ def login(request):
         print('username-------------->', username)
         print('password-------------->', password)
         user = auth.authenticate(username=username, password=password)
+        print('user---------->', user)
         if user is not None:
             auth.login(request,user)
             return redirect('/manage/')

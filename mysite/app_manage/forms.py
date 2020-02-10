@@ -19,3 +19,14 @@ class ProjectEditForms(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'describe', 'status']
+
+class ModuleForms(forms.ModelForm):
+    """ 添加模块"""
+
+    class Meta:
+        model = Module
+        fields = ['project', 'name', 'describe']
+        widgets = {
+            'name':forms.widgets.TextInput(attrs={'class':'form-control'}),
+            'describe':forms.widgets.Textarea(attrs={'class':'form-control'}),
+        }

@@ -1,0 +1,44 @@
+{% extends "manage.html" %}
+{% block title%}
+<title>创建模块</title>
+{% endblock %}
+{% block manage %}
+<div class="card flex-fill">
+    <div class="card-header">
+        <h5 class="card-title mb-0" style="float:left">创建模块</h5>
+    </div>
+    <div id="datatables-dashboard-traffic_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+            <div class="col-sm-12 col-md-6"></div>
+            <div class="col-sm-12 col-md-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="margin-left: 20px;margin-right: 20px; width: 80%">
+                    <form action="/manage/module_add/" method="post">
+                        <div>
+                            <labe>项目名称：</labe><br/>
+                            {{ forms.project }}
+                        </div>
+                        <div>
+                            <labe>模块名称：</labe><br/>
+                            {{ forms.name }}
+                        </div>
+                        <div>
+                            <label>描述：</label><br/>
+                            {{ forms.describe }}
+                        </div>
+
+                        {% csrf_token %}
+                        <br>
+                        {{ errors }}
+                        <input type="submit" class="btn btn-primary" value="创建">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

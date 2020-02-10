@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" file=".py" name="TestRun-20200205150648" skipped="0" tests="1" time="0.580" timestamp="2020-02-05T15:06:48">
+		<testcase classname="TestRun" file="test_demo.py" line="13" name="test_file_data_json_dict_dict_00001_测试用例1" time="0.580" timestamp="2020-02-05T15:06:48">
+			<system-out>
+<![CDATA[{
+  "args": {
+    "{\"key1\": \"value1\", \"key2\": \"value2\"}": ""
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.20.1", 
+    "X-Amzn-Trace-Id": "Root=1-5e3a6988-7b30f612b45590cad87e17ec"
+  }, 
+  "origin": "113.73.176.126", 
+  "url": "http://httpbin.org/get?{\"key1\": \"value1\", \"key2\": \"value2\"}"
+}
+
+]]>			</system-out>
+			<system-err>
+<![CDATA[]]>			</system-err>
+		</testcase>
+	</testsuite>
+</testsuites>
