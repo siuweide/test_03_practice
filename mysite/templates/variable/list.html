@@ -90,7 +90,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-5">
                 <div class="dataTables_info" id="datatables-dashboard-traffic_info" role="status" aria-live="polite">
-                    共 {{ moduleList.paginator.num_pages }} 页，{{ moduleList.paginator.count }} 条数据
+                    共 {{ variable.paginator.num_pages }} 页，{{ variable.paginator.count }} 条数据
                 </div>
             </div>
             <div class="col-sm-12 col-md-7">
@@ -98,18 +98,18 @@
                     <ul class="pagination">
                         <li class="paginate_button page-item previous"
                             id="datatables-dashboard-traffic_previous">
-                            {% if moduleList.has_previous %}
-                            <a href="?page={{ moduleList.previous_page_number }}" data-dt-idx="0" tabindex="0"
+                            {% if variable.has_previous %}
+                            <a href="?page={{ variable.previous_page_number }}" data-dt-idx="0" tabindex="0"
                                 class="page-link">Previous</a>
                             {% endif %}
                         </li>
                         <li class="paginate_button page-item active">
                             <a href="#" aria-controls="datatables-dashboard-traffic" data-dt-idx="1" tabindex="0"
-                                class="page-link">{{ moduleList.number }}</a>
+                                class="page-link">{{ variable.number }}</a>
                         </li>
                         <li class="paginate_button page-item next" id="datatables-dashboard-traffic_next">
-                            {% if moduleList.has_next %}
-                            <a href="?page={{ moduleList.next_page_number }}"  data-dt-idx="2" tabindex="0"
+                            {% if variable.has_next %}
+                            <a href="?page={{ variable.next_page_number }}"  data-dt-idx="2" tabindex="0"
                                 class="page-link">Next</a>
                             {% endif %}
                         </li>
