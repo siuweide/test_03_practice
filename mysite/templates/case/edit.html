@@ -43,6 +43,17 @@
                         </div>
                     </div>
 
+                    <!-- 是否获取cookie -->
+                    <div class="option">
+                        <label>是否获取cookie：</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_cookie" id="yes" value="yes" > yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_cookie" id="no" value="no" checked> no
+                        </label>
+                    </div>
+
                     <!--参数类型-->
                     <div style="margin-top: 10px;">
                         <label>* 参数类型：</label>
@@ -161,6 +172,7 @@
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
         req_type = $('input[name="par_type"]:checked').val();
+        req_cookie = $('input[name="is_cookie"]:checked').val();
         req_header = headersEditor.get();
         req_parameter = parameterEditor.get();
         let req_header_str = JSON.stringify(req_header, null, 2);
@@ -173,6 +185,7 @@
             url: req_url,
             method:req_method,
             per_type:req_type,
+            cookie:req_cookie,
             header:req_header_str,
             per_value:req_parameter_str,
         },

@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 from django.shortcuts import render, redirect
 
 from app_manage.models import Project,Module
@@ -10,6 +11,16 @@ def manage(request):
 def project_list(request):
     """  项目管理列表 """
     projectList = Project.objects.all().order_by('-create_time')
+    p = Paginator(projectList, 5)
+    page = request.GET.get('page', '')
+    if page == '':
+        page = 1
+    try:
+        projectList = p.page(page)
+    except PageNotAnInteger:
+        projectList = p.page(1)
+    except EmptyPage:
+        projectList = p.page(p.num_pages)
     return render(request, 'projects/list.html', {
         'projectList':projectList
     })

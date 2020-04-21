@@ -47,17 +47,31 @@ def send_req(request):
         url = request.GET.get('url', '')
         method = request.GET.get('method', '')
         header = request.GET.get('header', '')
+        cookie = request.GET.get('cookie', '')
         per_type = request.GET.get('per_type', '')
         per_value = request.GET.get('per_value', '')
 
         if url == "":
             return JsonResponse({"code":10101, "message":"URL不能为空!"})
 
+
         if  "${" in url and  "}" in url:
             variable_key = re.findall("\${(.+?)}", url)[0]
             print('variable----------->', variable_key)
             variable = Variable.objects.get(key=variable_key)
             url = variable.value
+
+        if "${" in header and "}" in header:
+            header = str(header)
+            key = re.findall("\"\${(.+?)}\"", header)[0]
+            variable = Variable.objects.get(key=key)
+            real_value = variable.value
+            data_list = re.findall("\"(.+?)\"", header)
+            for data in data_list:
+                # 将匹配出来的列表，逐一找，包含${ 和 } 的字符串取出来
+                if "${" in data and "}" in data:
+                    replace_value = data
+            header = header.replace(replace_value, real_value)
 
         try:
             header = json.loads(header)
@@ -77,21 +91,38 @@ def send_req(request):
                 if "${" in data and "}" in data:
                     replace_value = data
             per_value = per_value.replace(replace_value, real_value)
-            print('per_value----------->', type(per_value), per_value)
 
         try:
             per_value = json.loads(per_value)
         except json.decoder.JSONDecodeError:
             return JsonResponse({"code": 10103, "message":"参数内容格式错误，必须是标准的JSON格式"})
 
+        if cookie == 'yes':
+            if method == 'get':
+                r = requests.get(url, params=per_value, headers=header)
+            elif method == 'post':
+                if per_type == 'form':
+                    r = requests.post(url, data=per_value, headers=header)
+                    cookies = r.cookies
+                    cookies = requests.utils.dict_from_cookiejar(cookies)
+                    cookies = 'sessionid=' + cookies['sessionid']
+                    variable = Variable.objects.filter(key='Cookie')
+                    print('variable-------->', variable)
+                    if variable:
+                        variable.update(value=cookies)
+                    else:
+                        Variable.objects.create(key='Cookie', value=cookies)
 
-        if method == 'get':
-            r = requests.get(url, params=per_value, headers=header)
-        elif method == 'post':
-            if per_type == 'form':
-                r = requests.post(url, data=per_value, headers=header)
-            elif per_type == 'json':
-                r = requests.post(url, json=per_value, headers=header)
+                elif per_type == 'json':
+                    r = requests.post(url, json=per_value, headers=header)
+        elif cookie == 'no':
+            if method == 'get':
+                r = requests.get(url, params=per_value, headers=header)
+            elif method == 'post':
+                if per_type == 'form':
+                    r = requests.post(url, data=per_value, headers=header)
+                elif per_type == 'json':
+                    r = requests.post(url, json=per_value, headers=header)
 
         return JsonResponse({"code":10200, "message":"success", "data": r.text})
 

@@ -17,7 +17,7 @@ def login(request):
         print('user---------->', user)
         if user is not None:
             auth.login(request,user)
-            return redirect('/manage/')
+            return redirect('/manage/project_list/')
         elif username == '' or password == '':
             errors = '用户名不能为空'
             return render(request, 'login.html', {"errors":errors})

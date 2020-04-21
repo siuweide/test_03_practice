@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-5">
                 <div class="dataTables_info" id="datatables-dashboard-traffic_info" role="status" aria-live="polite">
-                    Showing 1 to 8 of 8 entries
+                    共 {{ projectList.paginator.num_pages }} 页，{{ projectList.paginator.count }} 条数据
                 </div>
             </div>
             <div class="col-sm-12 col-md-7">
@@ -58,16 +58,20 @@
                     <ul class="pagination">
                         <li class="paginate_button page-item previous disabled"
                             id="datatables-dashboard-traffic_previous">
-                            <a href="#" aria-controls="datatables-dashboard-traffic" data-dt-idx="0" tabindex="0"
+                            {% if projectList.has_previous %}
+                            <a href="?page={{ projectList.previous_page_number }}" aria-controls="datatables-dashboard-traffic" data-dt-idx="0" tabindex="0"
                                 class="page-link">Previous</a>
+                            {% endif %}
                         </li>
                         <li class="paginate_button page-item active">
                             <a href="#" aria-controls="datatables-dashboard-traffic" data-dt-idx="1" tabindex="0"
-                                class="page-link">1</a>
+                                class="page-link">{{ projectList.number }}</a>
                         </li>
                         <li class="paginate_button page-item next disabled" id="datatables-dashboard-traffic_next">
-                            <a href="#" aria-controls="datatables-dashboard-traffic" data-dt-idx="2" tabindex="0"
+                            {% if projectList.has_next %}
+                            <a href="?page={{ projectList.next_page_number }}" aria-controls="datatables-dashboard-traffic" data-dt-idx="2" tabindex="0"
                                 class="page-link">Next</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
